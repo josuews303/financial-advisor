@@ -1,10 +1,8 @@
-import counterReducer from './counter';
-import loggedReducer from './isLogged';
+import  riskLevel  from "./riskLevel";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
-    counter: counterReducer,
-    isLogged: loggedReducer
+    risk: riskLevel
 });
 
 export default allReducers;

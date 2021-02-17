@@ -1,0 +1,35 @@
+.App{
+    margin-top: 25px;
+  }
+  .title{
+    font-weight: bold;
+  }
+  .info-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 25px auto;
+  }
+  .buttons-container{
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
+  .btn-risk{
+    font-size: large !important;
+    color:black !important;
+    border: black 3px solid !important;
+    border-radius: 5px !important;
+  }
+  .btn-risk a{
+      color:white;
+  }
+  .active{
+    background-color: rgb(230, 255, 63) !important;
+  }
+  th{
+    text-align: center !important;
+  }
+  td{
+    text-align: end !important;
+  }

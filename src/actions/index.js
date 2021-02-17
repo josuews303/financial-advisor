@@ -1,6 +1,6 @@
-export const increment = (nr) =>{
+export const selectRisk = (level) =>{
     return{
-        type:'INCREMENT',
-        payload:nr
+        type:'NEW_RISK',
+        payload:level
     };
 };

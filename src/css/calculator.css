@@ -1,0 +1,10 @@
+.title{
+    font-size: xx-large;
+    width: 100% ;
+    text-align: center;
+}
+h3{
+    font-size: larger !important;
+    font-weight: bold !important;
+    margin: 10px !important;
+}
