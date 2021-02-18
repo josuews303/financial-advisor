@@ -119,10 +119,6 @@ function Risk() {
                 </tbody>
               </table>
             </Cell>
-        
-
-
-
       </Grid>
 
     </div>

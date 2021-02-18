@@ -70,13 +70,6 @@ function Risk() {
                     }
                 }
             }
-            console.log('total', total);
-            console.log('current', current);
-            console.log('percentages', percentages);
-            console.log('expected', expected);
-            console.log('restul difference', difference);
-            console.log('start_difference', ini_difference);
-            console.log(text);
 
             let newAmount = document.getElementsByClassName('new-amount');
             let results = document.getElementsByClassName('results');
