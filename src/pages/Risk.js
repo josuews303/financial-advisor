@@ -20,25 +20,27 @@ function Risk() {
   }, []);
   function handleRisk(id) {
     var temp = info[id];
-    console.log('temp', temp);
     var data = [{ x: 'Bonds', y: temp[0] }, { x: 'Large Cap', y: temp[1] }, { x: 'Mid Cap', y: temp[2] }, { x: 'Foreign', y: temp[3] }, { x: 'Small Cap', y: temp[4] }];
     setData(data);
+    paintSelected(id);
+    dispatch(selectRisk(parseInt(id)+1));
+    setContinue(false);
+  }
+  function paintSelected(id){
     let buttons = document.getElementsByClassName('btn-risk');
     let rows = document.getElementsByTagName('tr');
     for(let i=0;i<buttons.length;i++){
       buttons[i].classList.remove("active");
-      if(buttons[i].id==id){
+      if(buttons[i].id===id){
         buttons[i].classList.add('active');
       }
     }
     for(let i=0;i<rows.length;i++){
       rows[i].classList.remove("active");
-      if(rows[i].id==id){
+      if(rows[i].id===id){
         rows[i].classList.add('active');
       }
     }
-    dispatch(selectRisk(parseInt(id)+1));
-    setContinue(false);
   }
   function switchChart() {
     setChart(!chart);
@@ -68,9 +70,8 @@ function Risk() {
               <Link to='/calculator'>Continue</Link>
               </Button>
         </Cell>
-        {
-          chart ?
-            <Cell small={10} medium={5} large={5}>
+        
+            <Cell small={10} medium={5} large={5} hidden={!chart}>
               <Button isExpanded color="success" onClick={switchChart}>Table View</Button>
               {
                 data.length > 0 ?
@@ -88,8 +89,7 @@ function Risk() {
               }
 
             </Cell>
-            :
-            <Cell small={12} medium={10} large={8}>
+            <Cell small={12} medium={10} large={8} hidden={chart}>
               <Button isExpanded color="success" onClick={switchChart}>Donut Chart View</Button>
               <table>
                 <thead>
@@ -119,7 +119,7 @@ function Risk() {
                 </tbody>
               </table>
             </Cell>
-        }
+        
 
 
 

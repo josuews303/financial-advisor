@@ -10,76 +10,99 @@ function Risk() {
     const risk = useSelector(state => state.risk);
     const [info, setInfo] = useState([]);
 
-    const [bond, setBonds] = useState(0);
-    const [largeCap, setLargeCap] = useState(0);
-    const [midCap, setMidCap] = useState(0);
-    const [foreign, setForeign] = useState(0);
-    const [smallCap, setSmallCap] = useState(0);
-
     useEffect(() => {
         var data = getInfo();
         setInfo(data[risk - 1]);
-        console.log(data[risk - 1]);
-    }, []);
+    }, [risk]);
 
     function calculate() {
-        var labels = ["Bonds", "Large Cap", "Mid Cap", "Foreign", "Samll Cap"];
+        var labels = ["Bonds", "Large Cap", "Mid Cap", "Foreign", "Small Cap"];
         var values = document.getElementsByClassName('values');
         var percentages = info;
         var total = parseFloat(0);
         var difference = [];
         var expected = [];
         var current = [];
-        var results = [];
-        for (let i = 0; i < values.length; i++) {
-            console.log(values[i].value);
-            var t = parseFloat(values[i].value);
-            total = total + t;
-            current.push(t);
-        }
-        for (let i = 0; i < percentages.length; i++) {
-            var ex = total * (percentages[i] / 100);
-            expected.push(ex);
-            difference.push(ex - current[i]);
-            results.push(ex - current[i]);
-        }
-        var text = "";
-        for (let i = 0; i < difference.length; i++) {
-            if (difference[i] > 0) {
-                for (let j = i; j < difference.length; j++) {
-                    if (j != i && difference[j] < 0) {
-                        var num = difference[j] * -1;
-                        console.log("num", num);
-                        if (difference[i] >= num) {
-                            var result = difference[i] - num;
-                            console.log('reslt', result);
-                            text = text + `1Transfer ${(difference[j] * -1)} from ${labels[j]} to ${labels[i]} \n`;
-                            difference[i] = result;
-                            difference[j] = 0;
-                        } else if(difference[i]!=0){
-                            var result = num - difference[i];
-                            console.log('2reslt', result);
-                            text = text + `2Transfer ${(difference[i])} from ${labels[j]} to ${labels[i]} \n`;
-                            difference[i] = 0;
-                            difference[j] = result*-1;
+        var ini_difference = [];
+        var t = 0;
+        try {
+            for (let i = 0; i < values.length; i++) {
+                t = parseFloat(values[i].value);
+                t = Math.round(t * 100) / 100;
+                if (t < 0) {
+                    throw new Error("Only positive numbers >= 0");
+                }
+                total = total + t;
+                current.push(t);
+            }
+            for (let i = 0; i < percentages.length; i++) {
+                var per = percentages[i] / 100;
+                var ex = total * per;
+                ex = Math.round(ex * 100) / 100
+                expected.push(ex);
+                t = parseFloat(ex - current[i]);
+                t = Math.round(t * 100) / 100;
+                difference.push(t);
+                ini_difference.push(t);
+            }
+            var text = "";
+            for (let i = 0; i < difference.length; i++) {
+                if (difference[i] > 0) {
+                    for (let j = 0; j < difference.length; j++) {
+                        if (j !== i && difference[j] < 0) {
+                            var num = difference[j] * -1;
+                            num = Math.round(num * 100) / 100;
+                            var result = 0
+                            if (difference[i] >= num) {
+                                result = difference[i] - num;
+                                result = Math.round(result * 100) / 100;
+                                text = text + `Transfer ${(difference[j] * -1)} from ${labels[j]} to ${labels[i]} \n`;
+                                difference[i] = result;
+                                difference[j] = 0;
+                            } else if (difference[i] !== 0) {
+                                result = num - difference[i];
+                                result = Math.round(result * 100) / 100;
+                                text = text + `Transfer ${(difference[i])} from ${labels[j]} to ${labels[i]} \n`;
+                                difference[i] = 0;
+                                difference[j] = result * -1;
+                            }
                         }
                     }
                 }
             }
-        }
-        console.log('total', total);
-        console.log('current', current);
-        console.log('percentages', percentages);
-        console.log('expected', expected);
-        console.log('restul difference', difference);
-        console.log('start_difference', results);
-        console.log(text);
+            console.log('total', total);
+            console.log('current', current);
+            console.log('percentages', percentages);
+            console.log('expected', expected);
+            console.log('restul difference', difference);
+            console.log('start_difference', ini_difference);
+            console.log(text);
 
+            let newAmount = document.getElementsByClassName('new-amount');
+            let results = document.getElementsByClassName('results');
+
+            for (let i = 0; i < newAmount.length; i++) {
+                newAmount[i].value = expected[i];
+                newAmount[i].style.color = "blue";
+                if (ini_difference[i] >= 0) {
+                    results[i].style.color = "green";
+                    results[i].value = '+' + ini_difference[i];
+                } else {
+                    results[i].style.color = "red";
+                    results[i].value = ini_difference[i];
+                }
+            }
+
+            let recomended = document.getElementById("recomended");
+            recomended.value = text;
+        } catch (e) {
+            alert(e.name + ': ' + e.message)
+        }
     }
     return (
         <div className="App">
             {
-                risk == 0 ?
+                risk === 0 ?
                     <h1>Select a <Link to='/'>RISK LEVEL</Link> before navigate to this page</h1>
                     :
                     <Grid className="display" centerAlign>
@@ -132,50 +155,46 @@ function Risk() {
                                 <Cell small={4} medium={3}>
                                     <div className="current">
                                         <label>Bonds $:</label>
-                                        <input className="values" type="text"></input>
+                                        <input className="values" type="number" min={0}></input>
                                     </div>
                                     <div className="current">
                                         <label>Large Cap $:</label>
-                                        <input className="values" type="text"></input>
+                                        <input className="values" type="number" min={0}></input>
                                     </div>
                                     <div className="current">
                                         <label>Mid Cap $:</label>
-                                        <input className="values" type="text"></input>
+                                        <input className="values" type="number" min={0}></input>
                                     </div>
                                     <div className="current">
                                         <label>Foreign $:</label>
-                                        <input className="values" type="text"></input>
+                                        <input className="values" type="number" min={0}></input>
                                     </div>
                                     <div className="current">
                                         <label>Small Cap $:</label>
-                                        <input className="values" type="text"></input>
+                                        <input className="values" type="number" min={0}></input>
                                     </div>
                                 </Cell>
                                 <Cell small={2} medium={3}>
-                                    <input className="results" type="text"></input>
-                                    <input className="results" type="text"></input>
-                                    <input className="results" type="text"></input>
-                                    <input className="results" type="text"></input>
-                                    <input className="results" type="text"></input>
+                                    <input className="results" type="text" disabled></input>
+                                    <input className="results" type="text" disabled></input>
+                                    <input className="results" type="text" disabled></input>
+                                    <input className="results" type="text" disabled></input>
+                                    <input className="results" type="text" disabled></input>
 
                                 </Cell>
                                 <Cell small={3}>
-                                    <input className="new-amount" type="text"></input>
-                                    <input className="new-amount" type="text"></input>
-                                    <input className="new-amount" type="text"></input>
-                                    <input className="new-amount" type="text"></input>
-                                    <input className="new-amount" type="text"></input>
+                                    <input className="new-amount" type="text" disabled></input>
+                                    <input className="new-amount" type="text" disabled></input>
+                                    <input className="new-amount" type="text" disabled></input>
+                                    <input className="new-amount" type="text" disabled></input>
+                                    <input className="new-amount" type="text" disabled></input>
 
                                 </Cell>
                                 <Cell small={3}>
-
-                                    <textarea disabled id="w3review" name="w3review" rows="10" cols="50">
-
-                                    </textarea>
-
+                                    <textarea disabled id="recomended" name="recomended" rows="10" cols="50" />
                                 </Cell>
                             </Grid>
-                            <Button isExpanded color="success" onClick={calculate}>Donut Chart View</Button>
+                            <Button isExpanded color="success" onClick={calculate}>Rebalance</Button>
                         </Cell>
                     </Grid>
             }

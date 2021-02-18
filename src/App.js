@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Browser, Switch, Route } from "react-router-dom";
 import './App.css';
 import Risk from './pages/Risk';
 import Calculator from './pages/Calculator';
+import Header from "./components/Header";
 
 function App() {
   
   return (
     <Browser>
+    <Header/>
           <Switch>
             <Route path="/" exact component={Risk} />
             <Route path="/calculator" exact component={Calculator} />
