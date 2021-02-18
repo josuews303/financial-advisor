@@ -8,3 +8,17 @@ h3{
     font-weight: bold !important;
     margin: 10px !important;
 }
+input{
+    width:90% !important;
+}
+.current{
+    display:flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+.current input{
+    width: 50% !important;
+}
+.current label{
+    font-weight: bold;
+}
