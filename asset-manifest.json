@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/financial-advisor/static/css/main.b5484f2a.chunk.css",
+    "main.js": "/financial-advisor/static/js/main.760c4718.chunk.js",
+    "main.js.map": "/financial-advisor/static/js/main.760c4718.chunk.js.map",
+    "runtime-main.js": "/financial-advisor/static/js/runtime-main.d78de32d.js",
+    "runtime-main.js.map": "/financial-advisor/static/js/runtime-main.d78de32d.js.map",
+    "static/css/2.c44b4a19.chunk.css": "/financial-advisor/static/css/2.c44b4a19.chunk.css",
+    "static/js/2.b762ccde.chunk.js": "/financial-advisor/static/js/2.b762ccde.chunk.js",
+    "static/js/2.b762ccde.chunk.js.map": "/financial-advisor/static/js/2.b762ccde.chunk.js.map",
+    "static/js/3.fb2c01d7.chunk.js": "/financial-advisor/static/js/3.fb2c01d7.chunk.js",
+    "static/js/3.fb2c01d7.chunk.js.map": "/financial-advisor/static/js/3.fb2c01d7.chunk.js.map",
+    "index.html": "/financial-advisor/index.html",
+    "static/css/2.c44b4a19.chunk.css.map": "/financial-advisor/static/css/2.c44b4a19.chunk.css.map",
+    "static/css/main.b5484f2a.chunk.css.map": "/financial-advisor/static/css/main.b5484f2a.chunk.css.map",
+    "static/js/2.b762ccde.chunk.js.LICENSE.txt": "/financial-advisor/static/js/2.b762ccde.chunk.js.LICENSE.txt",
+    "static/media/base.css": "/financial-advisor/static/media/pficon.eae21d83.woff",
+    "static/media/home.0417ee9b.ico": "/financial-advisor/static/media/home.0417ee9b.ico"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d78de32d.js",
+    "static/css/2.c44b4a19.chunk.css",
+    "static/js/2.b762ccde.chunk.js",
+    "static/css/main.b5484f2a.chunk.css",
+    "static/js/main.760c4718.chunk.js"
+  ]
+}
