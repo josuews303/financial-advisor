@@ -116,7 +116,7 @@ function Risk(props) {
                     <Cell small={2} medium={3}>
                         {
                             difference.map((ex, i) => (
-                                <input key={i} className={ex !== undefined && ex >= 0 ? "difference" : "difference-alt"} type="text" value={ex!=='not'?ex:''} disabled></input>
+                                <input key={i} className={ex !== undefined && ex >= 0 ? "difference" : "difference-alt"} type="text" value={ex!=='not'?ex>=0?'+'+ex:ex:''} disabled></input>
                             ))
                         }
                     </Cell>
