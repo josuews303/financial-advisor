@@ -11,9 +11,10 @@ import { Link } from "react-router-dom";
 function Risk() {
   const dispatch = useDispatch();
   const [info, setInfo] = useState([]);
-  const [disableContinue, setContinue] = useState(true);
+  const [disableContinue, setDisableContinue] = useState(true);
   const [chart, setChart] = useState(false);
   const [data, setData] = useState([]);
+  const [selectedId,setSelectedId] = useState();
 
   useEffect(() => {
     setInfo(getInfo());
@@ -22,25 +23,9 @@ function Risk() {
     var temp = info[id];
     var data = [{ x: 'Bonds', y: temp[0] }, { x: 'Large Cap', y: temp[1] }, { x: 'Mid Cap', y: temp[2] }, { x: 'Foreign', y: temp[3] }, { x: 'Small Cap', y: temp[4] }];
     setData(data);
-    paintSelected(id);
+    setSelectedId(id);
     dispatch(selectRisk(parseInt(id)+1));
-    setContinue(false);
-  }
-  function paintSelected(id){
-    let buttons = document.getElementsByClassName('btn-risk');
-    let rows = document.getElementsByTagName('tr');
-    for(let i=0;i<buttons.length;i++){
-      buttons[i].classList.remove("active");
-      if(buttons[i].id===id){
-        buttons[i].classList.add('active');
-      }
-    }
-    for(let i=0;i<rows.length;i++){
-      rows[i].classList.remove("active");
-      if(rows[i].id===id){
-        rows[i].classList.add('active');
-      }
-    }
+    setDisableContinue(false);
   }
   function switchChart() {
     setChart(!chart);
@@ -61,7 +46,7 @@ function Risk() {
               <Button key={index}
                 id={index}
                 color="secondary"
-                className="btn-risk"
+                className={`btn-risk ${selectedId==index && "active"}`}
                 isHollow
                 onClick={(e) => handleRisk(e.target.id)}>{index + 1}</Button>
             ))
@@ -106,7 +91,9 @@ function Risk() {
                   {
                     info.length > 0 && info.map((i, index) => (
 
-                      <tr key={index} id={index}>
+                      <tr key={index} 
+                      id={index}
+                      className={`${selectedId==index && "active"}`}>
                         <td>{index + 1}</td>
                         {
                           i.map((x, ind) => (

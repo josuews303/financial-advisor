@@ -22,3 +22,12 @@ input{
 .current label{
     font-weight: bold;
 }
+.new-amount{
+    color:blue;
+}
+.difference{
+    color:green !important;
+}
+.difference-alt{
+    color:red !important;
+}

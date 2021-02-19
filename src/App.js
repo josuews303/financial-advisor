@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Browser, Switch, Route } from "react-router-dom";
 import './App.css';
 import Risk from './pages/Risk';
-import Calculator from './pages/Calculator';
+import Calculator from './pages/Portfolio';
 import Header from "./components/Header";
 
 function App() {
