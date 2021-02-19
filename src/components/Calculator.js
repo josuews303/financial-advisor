@@ -4,8 +4,8 @@ import '../css/calculator.css';
 
 
 function Risk(props) {
-    const [expected, setExpected] = useState(Array.apply(null, Array(5)).map(function () { return false}));
-    const [difference, setDifference] = useState(Array.apply(null, Array(5)).map(function () { return false}));
+    const [expected, setExpected] = useState(Array.apply(null, Array(5)).map(function () { return 'not'}));
+    const [difference, setDifference] = useState(Array.apply(null, Array(5)).map(function () { return 'not'}));
     const [text, setText] = useState('');
     const labels = ["Bonds", "Large Cap", "Mid Cap", "Foreign", "Small Cap"];
     const data = props.data;
@@ -106,14 +106,14 @@ function Risk(props) {
                     <Cell small={2} medium={3}>
                         {
                             difference.map((ex, i) => (
-                                <input key={i} className={ex !== undefined && ex >= 0 ? "difference" : "difference-alt"} type="text" value={ex?ex:''} disabled></input>
+                                <input key={i} className={ex !== undefined && ex >= 0 ? "difference" : "difference-alt"} type="text" value={ex!=='not'?ex:''} disabled></input>
                             ))
                         }
                     </Cell>
                     <Cell small={3}>
                         {
                             expected.map((diff, i) => (
-                                <input key={i} className="new-amount" type="text" disabled value={diff?diff:''}></input>
+                                <input key={i} className="new-amount" type="text" disabled value={diff!=='not'?diff:''}></input>
                             ))
                         }
 

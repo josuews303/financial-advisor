@@ -21,8 +21,8 @@
     border: black 3px solid !important;
     border-radius: 5px !important;
   }
-  .btn-risk a{
-      color:white;
+  #btn-continue{
+      color:white !important;
   }
   .active{
     background-color: rgb(230, 255, 63) !important;

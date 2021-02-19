@@ -11,7 +11,7 @@ function App() {
     <Browser>
     <Header/>
           <Switch>
-            <Route path="/" exact component={Risk} />
+            <Route path="/financial-advisor" exact component={Risk} />
             <Route path="/calculator" exact component={Calculator} />
           </Switch>
     </Browser>

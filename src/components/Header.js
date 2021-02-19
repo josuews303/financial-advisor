@@ -6,7 +6,7 @@ function Header() {
 
     return (
         <header>
-            <Link to='/'><img id="top-logo" alt="home-icon" src={homeIcon}></img></Link>
+            <Link to='/financial-advisor'><img id="top-logo" alt="home-icon" src={homeIcon}></img></Link>
             <div id="app-title">
                 Financial Advisor
             </div>
