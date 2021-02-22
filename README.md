@@ -6,6 +6,10 @@ A demo of this project is [here](https://josuews303.github.io/financial-advisor)
 
 In the project directory, you can run:
 
+### `npm run install`
+
+and:
+
 ### `npm run start`
 
 Runs the app in the development mode.
