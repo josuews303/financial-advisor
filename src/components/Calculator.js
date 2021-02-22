@@ -1,30 +1,23 @@
 import React, { useState} from 'react';
 import { Grid, Cell, Button } from 'react-foundation';
 import '../css/calculator.css';
-
+import balancePortfolio from '../helpers/rebalance';
 
 function Risk(props) {
     const [expected, setExpected] = useState(Array.apply(null, Array(5)).map(function () { return 'not'}));
     const [difference, setDifference] = useState(Array.apply(null, Array(5)).map(function () { return 'not'}));
     const [text, setText] = useState('');
     const labels = ["Bonds", "Large Cap", "Mid Cap", "Foreign", "Small Cap"];
-    const data = props.data;
 
     function calculate() {
         //get all values from inputs with class 'values'.
         var values = document.getElementsByClassName('values');
-        //get hardcode data and initialize variables.
-        var percentages = data;
         var total = parseFloat(0);
-        var difference = [];
-        var expected = [];
         var current = [];
-        var ini_difference = [];
-        var t = 0;
         try {
             //Iterate over html collection to get the numbers from input and total amount.
             for (let i = 0; i < values.length; i++) {
-                t = parseFloat(values[i].value);
+                var t = parseFloat(values[i].value);
                 t = Math.round(t * 100) / 100;
                 if (t < 0) {
                     throw new Error("Only positive numbers >= 0");
@@ -32,51 +25,11 @@ function Risk(props) {
                 total = total + t;
                 current.push(t);
             }
-            //Iterate over percentage data from hardcode to get the corresponding percentage */100 of any amount.
-            for (let i = 0; i < percentages.length; i++) {
-                var per = percentages[i] / 100;
-                var ex = total * per;
-                ex = Math.round(ex * 100) / 100
-                expected.push(ex);
-                //get difference between expected and current amount.
-                t = parseFloat(ex - current[i]);
-                t = Math.round(t * 100) / 100;
-                //store in two arrays because one of them will be change according to iterations.
-                difference.push(t);
-                ini_difference.push(t);
-            }
-            var text = "";//Initialize recommendations message.
-            for (let i = 0; i < difference.length; i++) {
-                if (difference[i] > 0) {
-                    //We need more money in this case.
-                    for (let j = 0; j < difference.length; j++) {
-                        if (j !== i && difference[j] < 0) {
-                            //We found some accont with extra money.
-                            var num = difference[j] * -1;
-                            num = Math.round(num * 100) / 100;
-                            var result = 0
-                            if (difference[i] >= num) {
-                                //We take all the extra money from the account and add the transaction message to text value.
-                                result = difference[i] - num;
-                                result = Math.round(result * 100) / 100;
-                                text = text + `Transfer ${(difference[j] * -1)} from ${labels[j]} to ${labels[i]} \n`;
-                                difference[i] = result;
-                                difference[j] = 0;
-                            } else if (difference[i] !== 0) {
-                                //We take only the needed amount of money and return the rest to the account. Also we add the transaction message.
-                                result = num - difference[i];
-                                result = Math.round(result * 100) / 100;
-                                text = text + `Transfer ${(difference[i])} from ${labels[j]} to ${labels[i]} \n`;
-                                difference[i] = 0;
-                                difference[j] = result * -1;
-                            }
-                        }
-                    }
-                }
-            }
-            setDifference(ini_difference);
-            setExpected(expected);
-            setText(text);
+            let results = balancePortfolio(props.data,labels,total,current);
+            console.log(results);
+            setDifference(results.difference);
+            setExpected(results.expected);
+            setText(results.text);
         } catch (e) {
             alert(e.name + ': ' + e.message)
         }

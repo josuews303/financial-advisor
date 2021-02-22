@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { selectRisk } from "../actions";
+import { selectRisk } from "../redux/actions";
 import getInfo from '../hardcode/info';
 import { Grid, Cell, Button } from 'react-foundation';
 import '../css/risk.css';
