@@ -1,4 +1,4 @@
-# Financial Advidor
+# Financial Advisor
 
 A demo of this project is [here](https://josuews303.github.io/financial-advisor).
 
